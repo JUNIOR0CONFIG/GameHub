@@ -1,11 +1,14 @@
 // Configuración de Firebase (gratuita)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-analytics.js";
 const firebaseConfig = {
-    apiKey: "tu-api-key",
-    authDomain: "tuproyecto.firebaseapp.com",
-    projectId: "tuproyecto",
-    storageBucket: "tuproyecto.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "tu-app-id"
+    apiKey: "AIzaSyCovWsYvSUOYDkJ-tVYlUMbjzxf6gaUEIw",
+    authDomain: "gamehub-02.firebaseapp.com",
+    projectId: "gamehub-02",
+    storageBucket: "gamehub-02.firebasestorage.app",
+    messagingSenderId: "161881593765",
+    appId: "1:161881593765:web:fc66f79c7e6bfdb0057a4c",
+    measurementId: "G-L1NZ84LJH8"
 };
 
 // Inicializar Firebase

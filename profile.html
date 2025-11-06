@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - GameHub</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-gamepad"></i>
+                <span>GameHub</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
+                <a href="videos.html" class="nav-link"><i class="fas fa-play-circle"></i> Videos</a>
+                <a href="comics.html" class="nav-link"><i class="fas fa-book"></i> Comics</a>
+                <a href="games.html" class="nav-link"><i class="fas fa-dice"></i> Juegos</a>
+                <a href="dashboard.html" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+                <a href="profile.html" class="nav-link active"><i class="fas fa-user"></i> Perfil</a>
+                <a href="#" class="nav-link login-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </div>
+            <div class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar-section">
+                <div class="avatar-container">
+                    <img src="https://via.placeholder.com/150" alt="Avatar" class="profile-avatar" id="profileAvatar">
+                    <div class="avatar-overlay">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+                </div>
+                <div class="profile-info">
+                    <h1 id="profileUsername">Usuario</h1>
+                    <p class="profile-level">Nivel <span id="profileLevel">1</span></p>
+                    <div class="level-bar">
+                        <div class="level-progress" id="levelProgress" style="width: 30%;"></div>
+                    </div>
+                    <p class="profile-exp"><span id="currentExp">150</span> / <span id="nextLevelExp">500</span> EXP</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="content-grid">
+                <!-- Información Básica -->
+                <div class="profile-card basic-info">
+                    <h2><i class="fas fa-info-circle"></i> Información Básica</h2>
+                    <form id="basicInfoForm">
+                        <div class="form-group">
+                            <label for="displayName">Nombre para mostrar</label>
+                            <input type="text" id="displayName" name="displayName">
+                        </div>
+                        <div class="form-group">
+                            <label for="bio">Biografía</label>
+                            <textarea id="bio" name="bio" rows="4" placeholder="Cuéntanos sobre ti..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="website">Sitio web</label>
+                            <input type="url" id="website" name="website" placeholder="https://tusitio.com">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Guardar Cambios
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Preferencias -->
+                <div class="profile-card preferences">
+                    <h2><i class="fas fa-cog"></i> Preferencias</h2>
+                    <form id="preferencesForm">
+                        <div class="preference-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="emailNotifications" checked>
+                                <span class="checkmark"></span>
+                                Notificaciones por email
+                            </label>
+                        </div>
+                        <div class="preference-group">
+                            <label class="checkbox">
+                                <input type="checkbox" id="newsletter" checked>
+                                <span class="checkmark"></span>
+                                Recibir newsletter
+                            </label>
+                        </div>
+                        <div class="preference-group">
+                            <label for="theme">Tema de la interfaz</label>
+                            <select id="theme" name="theme">
+                                <option value="dark">Oscuro</option>
+                                <option value="light">Claro</option>
+                                <option value="auto">Automático</option>
+                            </select>
+                        </div>
+                        <div class="preference-group">
+                            <label for="language">Idioma</label>
+                            <select id="language" name="language">
+                                <option value="es">Español</option>
+                                <option value="en">English</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Guardar Preferencias
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Estadísticas -->
+                <div class="profile-card statistics">
+                    <h2><i class="fas fa-chart-bar"></i> Estadísticas</h2>
+                    <div class="stats-list">
+                        <div class="stat-item">
+                            <i class="fas fa-play-circle"></i>
+                            <div class="stat-details">
+                                <span class="stat-name">Videos Vistos</span>
+                                <span class="stat-value" id="statVideos">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-book"></i>
+                            <div class="stat-details">
+                                <span class="stat-name">Comics Leídos</span>
+                                <span class="stat-value" id="statComics">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="stat-details">
+                                <span class="stat-name">Tiempo Total</span>
+                                <span class="stat-value" id="statTime">0h</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-trophy"></i>
+                            <div class="stat-details">
+                                <span class="stat-name">Logros</span>
+                                <span class="stat-value" id="statAchievements">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logros -->
+                <div class="profile-card achievements">
+                    <h2><i class="fas fa-trophy"></i> Logros</h2>
+                    <div class="achievements-grid" id="achievementsGrid">
+                        <!-- Los logros se cargarán dinámicamente -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/profile.js"></script>
+</body>
+</html>

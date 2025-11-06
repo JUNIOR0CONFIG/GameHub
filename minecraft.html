@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Servers - GameHub</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/minecraft.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-gamepad"></i>
+                <span>GameHub</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
+                <a href="videos.html" class="nav-link"><i class="fas fa-play-circle"></i> Videos</a>
+                <a href="comics.html" class="nav-link"><i class="fas fa-book"></i> Comics</a>
+                <a href="games.html" class="nav-link"><i class="fas fa-dice"></i> Juegos</a>
+                <a href="minecraft.html" class="nav-link active"><i class="fas fa-cube"></i> Minecraft</a>
+                <a href="dashboard.html" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+                <a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Perfil</a>
+                <a href="#" class="nav-link login-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </div>
+            <div class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="minecraft-container">
+        <div class="minecraft-header">
+            <div class="header-content">
+                <h1><i class="fas fa-cube"></i> Servidores Minecraft</h1>
+                <p>Conecta con los mejores servidores de la comunidad</p>
+                <div class="header-stats">
+                    <div class="stat">
+                        <i class="fas fa-server"></i>
+                        <div>
+                            <span class="stat-value" id="totalServers">0</span>
+                            <span class="stat-label">Servidores</span>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <span class="stat-value" id="totalPlayers">0</span>
+                            <span class="stat-label">Jugadores Online</span>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-signal"></i>
+                        <div>
+                            <span class="stat-value" id="onlineServers">0</span>
+                            <span class="stat-label">Servidores Online</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="minecraft-content">
+            <div class="content-controls">
+                <div class="search-section">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="serverSearch" placeholder="Buscar servidores...">
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">Todos</button>
+                        <button class="filter-btn" data-filter="survival">Survival</button>
+                        <button class="filter-btn" data-filter="creative">Creative</button>
+                        <button class="filter-btn" data-filter="minigames">Minijuegos</button>
+                        <button class="filter-btn" data-filter="roleplay">Roleplay</button>
+                        <button class="filter-btn" data-filter="modded">Modded</button>
+                    </div>
+                </div>
+                
+                <div class="sort-section">
+                    <select id="sortSelect" class="sort-select">
+                        <option value="players">Más jugadores</option>
+                        <option value="rating">Mejor rating</option>
+                        <option value="newest">Más nuevos</option>
+                        <option value="name">Orden A-Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="servers-grid" id="serversGrid">
+                <!-- Los servidores se cargarán dinámicamente -->
+            </div>
+
+            <div class="load-more">
+                <button class="btn btn-secondary" id="loadMoreBtn">
+                    <i class="fas fa-plus"></i> Cargar Más Servidores
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal del Servidor -->
+    <div class="modal" id="serverModal">
+        <div class="modal-content server-modal">
+            <div class="modal-header">
+                <h2 id="serverModalTitle">Nombre del Servidor</h2>
+                <button class="modal-close" id="serverModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="server-hero">
+                    <img id="serverBanner" src="" alt="Banner del servidor">
+                    <div class="server-quick-info">
+                        <div class="server-status">
+                            <span class="status-indicator online"></span>
+                            <span class="status-text">Online</span>
+                        </div>
+                        <div class="server-players">
+                            <i class="fas fa-users"></i>
+                            <span id="modalPlayers">0/100</span>
+                        </div>
+                        <div class="server-version">
+                            <i class="fas fa-code-branch"></i>
+                            <span id="modalVersion">1.19.2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="server-details">
+                    <div class="details-grid">
+                        <div class="detail-section">
+                            <h3><i class="fas fa-info-circle"></i> Información</h3>
+                            <div class="detail-list">
+                                <div class="detail-item">
+                                    <span class="detail-label">IP:</span>
+                                    <span class="detail-value" id="modalIP">mc.server.com</span>
+                                    <button class="copy-btn" onclick="copyToClipboard('modalIP')">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Versión:</span>
+                                    <span class="detail-value" id="modalFullVersion">1.19.2</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Categoría:</span>
+                                    <span class="detail-value" id="modalCategory">Survival</span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">Website:</span>
+                                    <a href="#" class="detail-link" id="modalWebsite">Visitar sitio</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-section">
+                            <h3><i class="fas fa-chart-bar"></i> Estadísticas</h3>
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <i class="fas fa-users"></i>
+                                    <div class="stat-info">
+                                        <span class="stat-value" id="modalOnlinePlayers">0</span>
+                                        <span class="stat-label">Jugadores Online</span>
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <i class="fas fa-star"></i>
+                                    <div class="stat-info">
+                                        <span class="stat-value" id="modalRating">0.0</span>
+                                        <span class="stat-label">Rating</span>
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <i class="fas fa-heart"></i>
+                                    <div class="stat-info">
+                                        <span class="stat-value" id="modalVotes">0</span>
+                                        <span class="stat-label">Votos</span>
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <i class="fas fa-calendar"></i>
+                                    <div class="stat-info">
+                                        <span class="stat-value" id="modalUptime">99%</span>
+                                        <span class="stat-label">Uptime</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="server-description">
+                        <h3><i class="fas fa-file-alt"></i> Descripción</h3>
+                        <p id="modalDescription">Descripción del servidor...</p>
+                    </div>
+
+                    <div class="server-features">
+                        <h3><i class="fas fa-check-circle"></i> Características</h3>
+                        <div class="features-list" id="modalFeatures">
+                            <!-- Características se cargarán dinámicamente -->
+                        </div>
+                    </div>
+
+                    <div class="server-actions">
+                        <button class="btn btn-primary" id="connectBtn">
+                            <i class="fas fa-plug"></i> Conectar al Servidor
+                        </button>
+                        <button class="btn btn-secondary" id="voteBtn">
+                            <i class="fas fa-thumbs-up"></i> Votar
+                        </button>
+                        <button class="btn btn-secondary" id="favoriteBtn">
+                            <i class="far fa-bookmark"></i> Favorito
+                        </button>
+                        <button class="btn btn-secondary" id="shareBtn">
+                            <i class="fas fa-share"></i> Compartir
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/database.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/minecraft.js"></script>
+</body>
+</html>

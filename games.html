@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos - GameHub</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/games.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-gamepad"></i>
+                <span>GameHub</span>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Inicio</a>
+                <a href="videos.html" class="nav-link"><i class="fas fa-play-circle"></i> Videos</a>
+                <a href="comics.html" class="nav-link"><i class="fas fa-book"></i> Comics</a>
+                <a href="games.html" class="nav-link active"><i class="fas fa-dice"></i> Juegos</a>
+                <a href="dashboard.html" class="nav-link"><i class="fas fa-chart-line"></i> Dashboard</a>
+                <a href="profile.html" class="nav-link"><i class="fas fa-user"></i> Perfil</a>
+                <a href="#" class="nav-link login-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </div>
+            <div class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="games-container">
+        <div class="games-header">
+            <h1><i class="fas fa-gamepad"></i> Juegos</h1>
+            <p>Conecta con servidores, descubre nuevos juegos y únete a la comunidad</p>
+            
+            <div class="games-controls">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="gameSearch" placeholder="Buscar juegos o servidores...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="minecraft">Minecraft</button>
+                    <button class="filter-btn" data-filter="roblox">Roblox</button>
+                    <button class="filter-btn" data-filter="multijugador">Multijugador</button>
+                    <button class="filter-btn" data-filter="popular">Popular</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Servidores Destacados -->
+        <section class="featured-servers">
+            <h2><i class="fas fa-crown"></i> Servidores Destacados</h2>
+            <div class="servers-grid" id="featuredServers">
+                <!-- Servidores se cargarán dinámicamente -->
+            </div>
+        </section>
+
+        <!-- Todos los Juegos -->
+        <section class="all-games">
+            <h2><i class="fas fa-th-large"></i> Todos los Juegos</h2>
+            <div class="games-grid" id="gamesGrid">
+                <!-- Juegos se cargarán dinámicamente -->
+            </div>
+        </section>
+
+        <div class="load-more">
+            <button class="btn btn-secondary" id="loadMoreBtn">
+                <i class="fas fa-plus"></i> Cargar Más Juegos
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal del Juego -->
+    <div class="modal" id="gameModal">
+        <div class="modal-content game-modal">
+            <div class="modal-header">
+                <h2 id="gameModalTitle">Nombre del Juego</h2>
+                <button class="modal-close" id="gameModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="game-hero">
+                    <img id="gameHeroImage" src="" alt="Juego">
+                    <div class="game-actions">
+                        <button class="btn btn-primary" id="playBtn">
+                            <i class="fas fa-play"></i> Jugar Ahora
+                        </button>
+                        <button class="btn btn-secondary" id="joinServerBtn">
+                            <i class="fas fa-users"></i> Unirse al Servidor
+                        </button>
+                    </div>
+                </div>
+                <div class="game-info">
+                    <div class="game-stats">
+                        <div class="stat">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <span class="stat-value" id="onlinePlayers">0</span>
+                                <span class="stat-label">Jugadores Online</span>
+                            </div>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-star"></i>
+                            <div>
+                                <span class="stat-value" id="gameRating">0.0</span>
+                                <span class="stat-label">Rating</span>
+                            </div>
+                        </div>
+                        <div class="stat">
+                            <i class="fas fa-heart"></i>
+                            <div>
+                                <span class="stat-value" id="gameLikes">0</span>
+                                <span class="stat-label">Me gusta</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-description">
+                        <h3>Descripción</h3>
+                        <p id="gameDescription">Descripción del juego...</p>
+                    </div>
+                    <div class="server-info">
+                        <h3>Información del Servidor</h3>
+                        <div class="server-details">
+                            <div class="detail">
+                                <span class="detail-label">IP:</span>
+                                <span class="detail-value" id="serverIP">mc.gamehub.com</span>
+                            </div>
+                            <div class="detail">
+                                <span class="detail-label">Versión:</span>
+                                <span class="detail-value" id="serverVersion">1.19.2</span>
+                            </div>
+                            <div class="detail">
+                                <span class="detail-label">Estado:</span>
+                                <span class="detail-value online" id="serverStatus">Online</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/games.js"></script>
+</body>
+</html>
